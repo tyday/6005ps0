@@ -4,6 +4,9 @@
 package turtle;
 
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
 public class TurtleSoup {
@@ -31,7 +34,7 @@ public class TurtleSoup {
      * @return angle in degrees, where 0 <= angle < 360
      */
     public static double calculateRegularPolygonAngle(int sides) {
-        double dblAnswer = 360/sides;
+        double dblAnswer = ((sides-2)*180/(double) sides);
         return dblAnswer;
     }
 
@@ -46,7 +49,7 @@ public class TurtleSoup {
      * @return the integer number of sides
      */
     public static int calculatePolygonSidesFromAngle(double angle) {
-        int intAnswer = (int)Math.round(360/angle);
+        int intAnswer = (int)Math.round(360/(180-angle));
         return intAnswer;
     }
 
@@ -99,7 +102,7 @@ public class TurtleSoup {
             theta += TWOPI;
         }
         theta = theta*RAD2DEG;
-        if(currentHeading < theta){
+        if(currentHeading <= theta){
             return theta - currentHeading;
         } else {
             return (360 - currentHeading + theta);
@@ -122,7 +125,14 @@ public class TurtleSoup {
      *         otherwise of size (# of points) - 1
      */
     public static List<Double> calculateHeadings(List<Integer> xCoords, List<Integer> yCoords) {
-        throw new RuntimeException("implement me!");
+        List<Double> headingList = new ArrayList<Double>();
+        double currentHeading = 0;
+        //headingList.add(currentHeading);
+        for(int i=0;i<xCoords.size()-1;i++){
+            currentHeading = calculateHeadingToPoint(currentHeading,xCoords.get(i),yCoords.get(i),xCoords.get(i+1),yCoords.get(i+1));
+            headingList.add(currentHeading);
+        }
+        return headingList;
     }
 
     /**
@@ -150,7 +160,10 @@ public class TurtleSoup {
 //        drawSquare(turtle, 40);
         
 //        drawRegularPolygon(turtle,3,40);
-        System.out.println(calculateHeadingToPoint(0,1,0,0,0));
+        System.out.println(calculateHeadingToPoint(0,1,0,1,-1));
+        System.out.println(calculatePolygonSidesFromAngle(60.0));
+        System.out.println(calculatePolygonSidesFromAngle(128.57));
+        System.out.println(calculatePolygonSidesFromAngle(108.0));
 
         // draw the window
 //        turtle.draw();
