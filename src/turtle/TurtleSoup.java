@@ -85,10 +85,25 @@ public class TurtleSoup {
      * @param targetY target point y-coordinate
      * @return adjustment to heading (right turn amount) to get to target point,
      *         must be 0 <= angle < 360
+     *         
+     * https://math.stackexchange.com/questions/1596513/find-the-bearing-angle-between-two-points-in-a-2d-space
+     *      -- grabbed code from here - Ty
      */
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
-        throw new RuntimeException("implement me!");
+        final double RAD2DEG = 57.2957795130823209;
+        final double TWOPI = 6.2831853071795865;
+        double theta = Math.atan2(targetX-currentX, targetY-currentY);
+        
+        if (theta <0.0){
+            theta += TWOPI;
+        }
+        theta = theta*RAD2DEG;
+        if(currentHeading < theta){
+            return theta - currentHeading;
+        } else {
+            return (360 - currentHeading + theta);
+        }
         
     }
 
@@ -134,10 +149,11 @@ public class TurtleSoup {
 
 //        drawSquare(turtle, 40);
         
-        drawRegularPolygon(turtle,3,40);
+//        drawRegularPolygon(turtle,3,40);
+        System.out.println(calculateHeadingToPoint(0,1,0,0,0));
 
         // draw the window
-        turtle.draw();
+//        turtle.draw();
     }
 
 }
