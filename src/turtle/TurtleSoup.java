@@ -15,7 +15,10 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawSquare(Turtle turtle, int sideLength) {
-        throw new RuntimeException("implement me!");
+        for (int i = 0; i<4;i++){
+            turtle.forward(sideLength);
+            turtle.turn(90);
+        }
     }
 
     /**
@@ -28,7 +31,8 @@ public class TurtleSoup {
      * @return angle in degrees, where 0 <= angle < 360
      */
     public static double calculateRegularPolygonAngle(int sides) {
-        throw new RuntimeException("implement me!");
+        double dblAnswer = 360/sides;
+        return dblAnswer;
     }
 
     /**
@@ -42,7 +46,8 @@ public class TurtleSoup {
      * @return the integer number of sides
      */
     public static int calculatePolygonSidesFromAngle(double angle) {
-        throw new RuntimeException("implement me!");
+        int intAnswer = (int)Math.round(360/angle);
+        return intAnswer;
     }
 
     /**
@@ -55,7 +60,11 @@ public class TurtleSoup {
      * @param sideLength length of each side
      */
     public static void drawRegularPolygon(Turtle turtle, int sides, int sideLength) {
-        throw new RuntimeException("implement me!");
+        double turnAmount = calculateRegularPolygonAngle(sides);
+        for (int i = 0; i < sides; i++){
+            turtle.forward(sideLength);
+            turtle.turn(turnAmount);
+        }
     }
 
     /**
@@ -80,6 +89,7 @@ public class TurtleSoup {
     public static double calculateHeadingToPoint(double currentHeading, int currentX, int currentY,
                                                  int targetX, int targetY) {
         throw new RuntimeException("implement me!");
+        
     }
 
     /**
@@ -122,7 +132,9 @@ public class TurtleSoup {
     public static void main(String args[]) {
         DrawableTurtle turtle = new DrawableTurtle();
 
-        drawSquare(turtle, 40);
+//        drawSquare(turtle, 40);
+        
+        drawRegularPolygon(turtle,3,40);
 
         // draw the window
         turtle.draw();
